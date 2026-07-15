@@ -1,23 +1,745 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+    <style>
+        :root {
+            --primary-color: #845D65;
+            --primary-light: #F7ECEF;
+            --primary-dark: #5C3D43;
+            --secondary-color: #C39B9B;
+            --accent-color: #E2B49A;
+            --text-color: #3D3436;
+            --text-muted: #706365;
+            --bg-color: #FAF7F5;
+            --card-bg: #FFFFFF;
+            --border-color: #EADEDF;
+            --success-color: #5E7E6A;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: var(--primary-dark);
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            margin: 10px 0 0 0;
+            color: var(--text-muted);
+            font-size: 1.1em;
+        }
+
+        nav {
+            background-color: var(--card-bg);
+            padding: 5px;
+            margin: 25px 0;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .main-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .main-menu li {
+            margin: 0;
+        }
+
+        .main-menu li a {
+            display: block;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+        }
+
+        .main-menu li a:hover {
+            color: var(--primary-color);
+            background-color: var(--primary-light);
+            border-radius: 8px;
+        }
+
+        .content-wrap {
+            display: flex;
+            gap: 30px;
+        }
+
+        .sidebar {
+            flex: 0 0 320px;
+            padding: 25px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            align-self: flex-start;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar h2 {
+            color: var(--primary-dark);
+            font-size: 1.35em;
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .sub-menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .sub-menu li a {
+            display: block;
+            padding: 11px 0;
+            text-decoration: none;
+            color: var(--text-muted);
+            border-bottom: 1px dashed var(--border-color);
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        .sub-menu li a:hover {
+            color: var(--primary-color);
+            padding-left: 8px;
+            font-weight: 600;
+        }
+
+        .calculator-section {
+            background-color: var(--primary-light);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 25px;
+        }
+
+        .calculator-section h3 {
+            color: var(--primary-dark);
+            font-size: 1.25em;
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+        .calculator-section p {
+            font-size: 0.92em;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .calculator-section label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 0.9em;
+        }
+
+        .calculator-section input[type="text"],
+        .calculator-section input[type="number"],
+        .calculator-section select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 6px;
+            box-sizing: border-box;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 0.95em;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-section input:focus,
+        .calculator-section select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .calculator-section button {
+            width: 100%;
+            padding: 13px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .calculator-section button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .main-content h2 {
+            color: var(--primary-dark);
+            font-size: 1.85em;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-top: 40px;
+            font-weight: 800;
+        }
+
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .main-content h3 {
+            color: var(--primary-color);
+            font-size: 1.45em;
+            margin-top: 35px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 14px;
+            font-weight: 700;
+        }
+
+        .main-content p {
+            color: var(--text-color);
+            margin-bottom: 1.2em;
+            text-align: justify;
+            font-size: 1.05em;
+        }
+
+        .highlight-box {
+            background-color: #FDF9F9;
+            border-left: 4px solid var(--secondary-color);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 25px 0;
+            color: var(--text-color);
+        }
+
+        .highlight-box p {
+            margin: 0;
+            line-height: 1.75;
+            font-size: 1.02em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            margin-bottom: 25px;
+            font-size: 0.95em;
+        }
+
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 14px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #FAF6F7;
+        }
+
+        .main-content h4 {
+            font-size: 1.15em;
+            color: var(--primary-dark);
+            margin-top: 25px;
+            font-weight: 700;
+        }
+
+        .main-content hr {
+            border: 0;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 40px 0;
+        }
+
+        .external-links ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .external-links li a {
+            display: block;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .external-links li a:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .custom-list {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .custom-list li {
+            margin-bottom: 10px;
+            font-size: 1.02em;
+        }
+
+        @media (max-width: 900px) {
+            .content-wrap {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                margin-bottom: 25px;
+            }
+            .main-content {
+                padding: 25px;
+            }
+            .main-menu {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .main-menu li a {
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+            }
+        }
+
+        #comparison_result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        #comparison_result table {
+            background-color: var(--card-bg);
+        }
+
+        #comparison_result table th, #comparison_result table td {
+            font-size: 0.9em;
+            padding: 10px;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://beauty.reliabledone.com/breast-elasticity-clinical-study"
+      },
+      "headline": "가슴탄력 처짐 해결책: 연령별 원인 분석 및 2026년 최신 관리 솔루션",
+      "description": "출산, 노화, 급격한 체중 감량으로 저하된 가슴탄력 복구 가이드. 가슴 리프팅 시술, 고기능 탄력 크림 성분 분석, 홈케어 기기 비교 및 2026년 뷰티 테크 트렌드까지 과학적인 가슴탄력 보존 가이드를 제공합니다.",
+      "image": "https://beauty.reliabledone.com/images/breast-elasticity-cover.jpg",  
+      "author": {
+        "@type": "Organization",
+        "name": "가슴 리프팅 및 피부 탄력 연구소"
+      },  
+      "publisher": {
+        "@type": "Organization",
+        "name": "메디컬 뷰티 인사이트 그룹",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://beauty.reliabledone.com/images/logo.png"
+        }
+      },
+      "datePublished": "2025-11-15",
+      "dateModified": "2026-07-16"
+    }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>가슴탄력 저하 원인 규명 및 복합 개선 전략</h1>
+            <p>신체 해부학적 구조 분석에 따른 생애주기별 탄력 복원 가이드</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul class="main-menu">
+                <li><a href="#anatomical_structure">가슴 구조와 인대 원리</a></li>
+                <li><a href="#age_analysis">연령별 탄력 변화 요인</a></li>
+                <li><a href="#care_solutions">네 가지 보존 솔루션</a></li>
+                <li><a href="#calculator_anchor">탄력 상태 및 비용 자가진단</a></li>
+                <li><a href="#community_trend">소비자 동향 및 내돈내산</a></li>
+                <li><a href="#tech_outlook">2026년 뷰티테크 전망</a></li>
+                <li><a href="#faq_section">자주 묻는 질문 FAQ</a></li>
+            </ul>
+        </nav>
+
+        <div class="content-wrap">
+            <div class="sidebar">
+                <h2>실시간 자가진단 메뉴</h2>
+                <ul class="sub-menu">
+                    <li><a href="#anatomical_structure">쿠퍼인대의 중요성</a></li>
+                    <li><a href="#age_analysis">출산 후 호르몬 변화</a></li>
+                    <li><a href="#care_solutions">보르피린 크림의 진실</a></li>
+                    <li><a href="#community_trend">커뮤니티 리얼 트렌드</a></li>
+                </ul>
+
+                <div class="calculator-section" id="calculator_anchor">
+                    <h3>가슴탄력 자가진단 계산기</h3>
+                    <p>현재 연령대와 신체적 변화 요소를 대입하여 자가 손실 정도를 계산하고 맞춤형 개선 가이드를 산출합니다.</p>
+                    <form id="elasticityForm" onsubmit="calculateElasticity(event)">
+                        <label for="userAge">현재 연령대</label>
+                        <select id="userAge" required>
+                            <option value="">선택하십시오</option>
+                            <option value="20">20대 여성</option>
+                            <option value="30">30대 여성</option>
+                            <option value="40">40대 여성</option>
+                            <option value="50">50대 이상 여성</option>
+                        </select>
+
+                        <label for="childBirth">출산 및 모유 수유 이력</option>
+                        <select id="childBirth" required>
+                            <option value="none">해당 없음</option>
+                            <option value="done">1회 이상 수유 완료</option>
+                        </select>
+
+                        <label for="weightLoss">최근 급격한 다이어트 경험</option>
+                        <select id="weightLoss" required>
+                            <option value="no">없음 (체중 유지)</option>
+                            <option value="yes">5kg 이상 급격한 감량</option>
+                        </select>
+
+                        <label for="currentStatus">주관적인 처짐 체감도</option>
+                        <select id="currentStatus" required>
+                            <option value="light">거의 느껴지지 않음 (예방 차원)</option>
+                            <option value="moderate">유두의 위치가 밑선과 평행해지기 시작함</option>
+                            <option value="severe">밑선 아래로 확실히 내려앉음</option>
+                        </select>
+
+                        <label for="preferredPlan">선호하는 관리 방식</option>
+                        <select id="preferredPlan" required>
+                            <option value="home">홈케어 (화장품, 보조 기기)</option>
+                            <option value="pro">전문 에스테틱 샵 케어</option>
+                            <option value="medical">피부과 레이저 및 성형외과 시술</option>
+                        </select>
+
+                        <button type="submit">자가진단 및 맞춤 견적 도출</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <h2 id="anatomical_structure">1. 신체 구조학적 분석: 가슴탄력을 결정짓는 해부학적 원리</h2>
+                <p>여성의 흉부 형태와 견고함을 조율하는 핵심적인 요인은 지지 구조의 견고성에 있습니다. 생물학적으로 가슴 내부에는 근육이 직접 존재하지 않으며 유선 조직과 이를 감싸는 백색 지방 세포, 그리고 조직을 흉벽 근막에 단단히 결속시키는 가느다란 가시 형태의 쿠퍼인대로 구성되어 있습니다. 이 쿠퍼인대는 가슴의 하중을 분산시키고 상방으로 지탱해주는 유일한 천연 버팀목 역할을 담당하고 있습니다. 콜라겐과 엘라스틴 같은 탄력 섬유질로 밀도 있게 짜여 있는 쿠퍼인대는 영구적인 인대가 아니라 노화나 반복적인 기계적 자극에 의해 느슨해지거나 미세하게 파열되는 성질을 지니고 있습니다.</p>
+                
+                <p>문제는 한 번 늘어나거나 형태가 끊어진 이 지지 섬유 결합체는 자연적으로 수축하거나 이전의 팽팽한 상태로 복원되지 않는 비가역적 성격을 띤다는 사실입니다. 따라서 이 결합 부위가 수직 하방 운동에 의해 지속적인 연신 자극을 받게 되면 피부층의 진피 붕괴와 맞물려 형태적 처짐이 급격하게 진행됩니다. 이 때문에 평상시 지지 구조의 유연성을 강화하고 불필요한 장력을 최소화하는 예방 중심의 다면적 설계가 필연적으로 요구됩니다. 가슴탄력 전문 관리는 가슴탄력 종류 중 단순한 외피 조직의 보습을 넘어 내막의 조직 구조를 안정적으로 유지하는 근본적인 메커니즘에서 출발해야 합니다.</p>
+
+                <div class="highlight-box">
+                    <p>핵심 진단 정보: 가슴탄력의 장단점과 물리적인 한계를 규명하자면, 외과적 형태 유지력이 높을수록 인장 내구도가 길어지지만 그만큼 피부 기질에 가해지는 산소 투과율과 수분 보유력이 감소할 수 있다는 점입니다. 따라서 평상시 생체 친화적인 콜라겐 생합성 반응을 유도하고 구조적 파열을 조기에 예방하는 입체적 차단의 설계가 가장 안전하고 높은 기여도를 제공합니다.</p>
+                </div>
+
+                <h3 id="age_analysis">2. 연령층에 따른 가슴탄력 저하 요인 및 임상적 특징</h3>
+                <p>생애 주기에 따라 가슴 내 밀도를 구성하는 조직의 비중이 역동적으로 달라지기 때문에 노화의 국면 또한 세대별로 명확한 차이점을 보입니다. 예컨대 20대 시기에는 유선 조직이 치밀하게 유지되어 외형적 고정력이 양호하지만 급격한 다이어트로 인한 요요 현상이나 에스트로겐 수치의 불균형으로 인해 피하 지방이 단기간에 유실되며 표피가 늘어지는 부작용을 겪는 경우가 빈번합니다. 다이어트 시 체지방이 빠져나간 공백을 표피가 신속하게 추종하지 못하면 탄력 섬유가 늘어나 주름이 생기게 되며, 이는 젊은 시기에도 조기 처짐을 겪는 결정적 사유가 됩니다.</p>
+
+                <p>30대로 진입하면 임신과 출산이라는 신체적 격변기를 맞닥뜨립니다. 임신 기간 동안에는 프로게스테론과 프로락틴 등의 성선 자극 호르몬의 영향으로 유선 조직이 최대 수 배 이상 발달하며 가슴의 가액과 부피가 팽창합니다. 그러나 출산과 모유 수유를 마치고 단유 단계로 접어들면 호르몬 분비량이 급강하하면서 비대해졌던 유선 세포들이 빠르게 위축됩니다. 이때 지지해주던 속살은 사라지고 과도하게 확장되었던 바깥쪽 스킨만 바람 빠진 풍선처럼 아래로 늘어지게 되는 이른바 유방하수 현상이 심화됩니다. 이 시기 가슴탄력 평균 변화 수치는 분만 횟수와 비례하는 경향이 있어 섬세한 세포 복원 관리가 뒤따라야 합니다.</p>
+
+                <p>40대와 50대 이상의 연령층에서는 체내 콜라겐 합성 속도가 노화로 인해 정상 대비 절반 이하 수준으로 더뎌지며 진피의 기저막 자체가 약화됩니다. 이에 따라 내부의 지방 구조와 완충 지대 역할을 하는 결합 조직이 쇠퇴하고 중력의 힘을 견디지 못해 형태적 처짐이 제일 급속도로 진행됩니다. 피부를 아래쪽에서 튼튼하게 고정해 주던 미세 인대 결합 조직이 소실되며 중력 방향으로 수축력이 작용해 윗가슴 부분의 볼륨이 눈에 띄게 평평해지는 구조적 노화 현상이 고착화됩니다.</p>
+
+                <h3 id="care_solutions">3. 현대 가슴탄력 보존을 위한 4대 솔루션 세부 분석</h3>
+                <p>현대의 기술을 기반으로 축적된 탄력 개선 방안은 기전과 적용 방식에 따라 코스메슈티컬 적용법, 디바이스 홈케어, 피부과적 시술, 외과적 방안의 네 가지 갈래로 구별됩니다. 이들의 장단점을 정확하게 계량하고 분석하는 과정은 본인의 상태에 맞추어 현명한 예산을 상정하는 기초 자료가 됩니다.</p>
+
+                <h4>1. 코스메슈티컬 케어: 기능성 크림 및 앰플 활성제</h4>
+                <p>가장 손쉽게 시도할 수 있는 다이렉트 자가 케어 요법으로, 피부 진피의 대사를 촉진하여 구조적인 결합 강도를 유지하는 기능성 화장품을 지속적으로 도포하는 방법입니다. 최근 시장에서 가장 높은 소비자 관심을 모으는 것은 세더마(Sederma) 사가 개발한 특허 원료인 지모뿌리 추출물 기반의 보르피린 성분입니다. 이 성분은 지방 분화 세포인 아디포사이트의 대사를 활성화하여 특정 국소 부위의 지방 세포 성장을 보완하는 작용 메커니즘을 나타내는 것으로 알려져 있습니다.</p>
+                
+                <p>여기에 진피의 탄성을 단단히 메우는 아데노신, 섬유아세포의 콜라겐 합성 정보를 조율하는 아세틸헥사펩타이드 계열의 단백질 분자가 결합되어 주름진 스킨 벽면을 촘촘히 보강합니다. 단점은 스킨 고유의 세포 투과 장벽 때문에 기질 중심부까지 성분이 도포되는 흡수 속도가 느려 최소 수개월간 반복적이며 정교한 규칙적 도포가 선행되어야 가시적인 변화를 관찰할 수 있다는 점입니다.</p>
+
+                <h4>2. 피지컬 테크놀로지: 홈케어 미세전류 및 발광다이오드 기기</h4>
+                <p>가정용으로 보급되는 다양한 가슴탄력 어플 기기들은 대체로 저주파 미세전류 혹은 전자기 유도 방식과 특정 대역의 광선 기술을 융합하여 피부의 기저 활성을 증폭하는 전략을 고수합니다. 인체에 무해한 아주 작은 세기의 전기에너지를 표피 하부에 인가하게 되면 세포 내에서 일종의 에너지 화폐 역할을 하는 아데노신삼인산 즉, ATP의 합성이 가파르게 증가합니다.</p>
+                
+                <p>이는 세포질 내부의 신호전달체계를 깨워 근섬유 주변의 혈행 순환을 원활하게 돕고 손상된 기질의 자가 수복 과정을 강력하게 서포트합니다. 적색광 영역의 LED 광선과 근적외선 영역의 전자기 유도는 진피 섬유 세포의 증식 능력을 자극하여 탄력 섬유가 느슨해지는 현상을 일정 수준 막아내며 가슴탄력 전문 브랜드 제품에서 핵심 유효 기전으로 널리 사용되고 있습니다.</p>
+
+                <h4>3. 메디컬 에스테틱: 병원용 에너지 리프팅 및 주입 시술</h4>
+                <p>보다 단기간에 물리적이며 명확한 피드백을 수반하는 방식으로, 고강도 집속 초음파를 투사하여 타겟팅된 진피와 근막층에 미세 열 응고점을 생성하는 HIFU 계열의 시술과 강력한 단극성 혹은 고주파 전류를 활용하는 에너제틱 요법이 있습니다. 열 응고점이 상처 유도 메커니즘을 이끌어내면 피부 세포는 자가 수축 과정을 거쳐 느슨했던 조직을 위쪽으로 한 단계 수축 및 고정하게 됩니다.</p>
+                
+                <p>추가로 PDO 및 PLLA와 같이 분해 흡수성 고분자 소재의 녹는 실을 진피층 아래의 격자 모양 구조물 주변에 정교하게 삽입하여 피하의 장력을 배가하고 세포들의 자체적인 유착을 강제 유도하는 가슴 리프팅 시술도 함께 진행되고 있습니다. 해당 시술법은 즉각적 반응이 뛰어나지만 일회성 가격이나 누적 견적 금액 측면에서 일반 가정용 홈케어와는 비교할 수 없을 정도로 고가에 포진해 있으며, 멍이나 붓기와 같은 일정 기간 동안의 다운타임이 불가피하다는 단점이 상존합니다.</p>
+
+                <h4>4. 성형외과적 접근: 유방하수 교정술 및 유선 보존 재건술</h4>
+                <p>처짐 등급이 극도로 심화된 3단계 하수 증상의 경우, 물리적인 레이저 가열 방식이나 기능성 크림 흡수력만으로는 원래 위치로 인대를 가동하기 불가능합니다. 이 단계에서는 성형외과를 내원하여 윗방향으로 늘어진 외피 일부를 직접 박리 및 절제한 뒤 가슴 안쪽의 연부 유선 조직을 정수리 쪽 상방 유륜 뒤 근막에 단단히 단축 봉합하여 들어 올리는 유방하수 수술법을 진행하게 됩니다. 형태적 하자는 확실하게 고치지만 흉터에 관한 장기적 사후 대안과 외과 수술이 갖는 부담감, 복구 비용 수준 등 사전의 치밀한 분석이 요구됩니다.</p>
+
+                <h3 id="solution_comparison">가슴탄력 관리 솔루션 종합 비교 분석표</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>관리 유형</th>
+                            <th>작용 원리</th>
+                            <th>예상 평균 비용 범위</th>
+                            <th>주요 장점</th>
+                            <th>치명적 단점</th>
+                            <th>추천 대상군</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**기능성 코스메슈티컬**</td>
+                            <td>지방세포 증식 유도 및 진피 콜라겐 합성 제어</td>
+                            <td>월 5만 ~ 15만 원선 (브랜드 차이 있음)</td>
+                            <td>비침습적이며 가격 진입 장벽이 낮고 지속적 접근이 가능</td>
+                            <td>두터운 각질층으로 인한 성분 투과율 한계, 긴 발현 기간 요구</td>
+                            <td>초기 처짐 예방 및 수술 후 피부 결 유지 관리군</td>
+                        </tr>
+                        <tr>
+                            <td>**저주파 기기 및 LED 기기**</td>
+                            <td>미세전류 활성화를 통한 세포 ATP 분비 및 생체 혈행 순환</td>
+                            <td>디바이스 가액 20만 ~ 80만 원선 (단회 구매)</td>
+                            <td>가정에서 편리한 반복 사용 가능, 장기적인 가성비가 매우 우수</td>
+                            <td>단독 사용 시 지지 구조를 드라마틱하게 바꾸는 능력 부족</td>
+                            <td>바쁜 일상 중 주기적인 데일리 유지를 요하는 홈케어 지향군</td>
+                        </tr>
+                        <tr>
+                            <td>**피부과 에너지 리프팅**</td>
+                            <td>HIFU, 단극 고주파 장치로 열 응고점 및 콜라겐 섬유 수축</td>
+                            <td>회당 50만 ~ 150만 원선 (다회 권장)</td>
+                            <td>비수술적 치료법 중 가장 빠르고 가시적인 스킨 타이트닝 유도</td>
+                            <td>높은 일회성 비용 지출, 주기적 내원 불이행 시 이전 회귀 가능성</td>
+                            <td>출산 혹은 무리한 감량 후 단기간에 집중 탄력 복구가 시급한 대상</td>
+                        </tr>
+                        <tr>
+                            <td>**외과적 수술 교정**</td>
+                            <td>처진 유방 하부 스킨 조직의 일부 절제 및 내부 위상 재배치</td>
+                            <td>단독 견적 400만 ~ 800만 원 이상</td>
+                            <td>하향 이탈이 심한 구조적 결함을 영구적이고 가시적으로 시정</td>
+                            <td>전신마취 위험, 절개선에 따른 흉터 잔존 및 높은 수술 가격</td>
+                            <td>3등급 이상의 매우 심각한 하향 이동 및 기질 결합력 완전 상실 환자</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr>
+
+                <h2 id="interactive_results" style="display:none;">맞춤형 자가진단 계산 시뮬레이션 결과 리포트</h2>
+                <div id="comparison_result" style="display:none;"></div>
+
+                <hr>
+
+                <h2 id="community_trend">4. 커뮤니티 빅데이터 분석: 디시, 보배드림, 펨코 등 여론과 내돈내산의 실체</h2>
+                <p>소비자들이 광고성 콘텐츠 범람 속에서 객관적인 사실을 선별하기 위해 많이 활용하는 곳은 디시인사이드 뷰티 관련 갤러리나 보배드림, 펨코(에펨코리아) 같은 유명 인터넷 익명 커뮤니티 포럼입니다. 해당 온라인 커뮤니티 공간에 게재된 가슴탄력 내돈내산 후기들을 정밀 분석해보면, 광고물에서 약속하는 전방위적 자가 재생 환상과 실제 사용자가 느끼는 만족도 사이에는 비교적 유의미한 괴리가 관찰됩니다. 커뮤니티 오피니언들은 주로 특정 크림 브랜드를 바르는 단일 솔루션만 고집하기보다는 평상시 가슴 지지 구조에 피로감을 덜 주는 기능성 스포츠 브라를 24시간 철저히 착용하며, 관련 운동을 병렬로 결합하는 다면적 일상을 최우선으로 추천합니다.</p>
+
+                <p>인터넷 커뮤니티상에서 현명한 소비자들은 비용을 합리적으로 세이브하기 위해 무조건 저렴한곳이나 일시적인 싼곳을 맹목적으로 추적하기보다, 각 플랫폼 제조사가 가입 혜택으로 무상 양도하는 신규 회원용 보너스 사은품이나 정품 입증용 보증서를 꼼꼼히 점검할 것을 조언합니다. 과장된 홍보 문구 속 현금지원이나 상품권 현혹 광고, 또는 불명확한 금액의 현금 사은품을 내세운 기기 결제 마케팅 등은 중도 해약이나 사후 보증 AS 시 고객센터와의 극심한 트러블을 야기하는 사유가 되므로 피하는 것이 바람직합니다. 공식 인가 웹사이트의 안전 결제 모듈이나 토스를 비롯한 투명한 핀테크 플랫폼에 등재된 브랜드 기획전을 면밀히 탐색하여 안정적인 할인을 취하는 방식이 제일 이성적인 대안으로 강조됩니다.</p>
+
+                <p>또한, 네이버 지식인 서비스나 글로벌 구글 데이터베이스를 다방면으로 교차 검색하여 유효 성분이 고함량 함유된 제품인지 판단하는 절차도 중요합니다. 최근에는 트위터의 실시간 정밀 피드백이나 인스타그램의 가감 없는 숏폼 릴스 영상, 페이스북 내부 정보 공유 커뮤니티, 유튜브 의학 전문 채널들의 검증된 의료 가이드 영상 등을 활용해 정교한 지식을 수득하려는 고지식한 움직임이 주류를 이룹니다. 특히 카카오톡 오픈채팅방의 프라이빗 뷰티방 혹은 보안성이 확보된 텔레그램 익명 정보 공유방 등에서는 개인적인 경험과 구체적인 치료 견적 비용 정보들이 가감 없이 오가기 때문에 과도한 포장 광고에 흔들리지 않는 판단 기준을 정립해 주고 있습니다.</p>
+
+                <hr>
+
+                <h2 id="tech_outlook">5. 2026년 가슴탄력 뷰티 테크 패러다임 변화와 법적 규제 전망</h2>
+                <p>2026년으로 진입하면서 가슴 리프팅 및 탄력 복원 영역의 뷰티 기술은 인공지능 알고리즘과의 전면적인 통합을 통해 엄청난 기술 도약을 완수하고 있습니다. 스마트폰 전용 자가 스캐닝 앱 및 디바이스 연계 어플리케이션을 통해 카메라로 가슴의 좌우 대칭성, 처짐의 하강 도수, 진피 표면의 미세 균열을 다각도로 분석한 뒤 맞춤형 홈케어 조사량을 가이드해주는 AI 스마트 카운셀링 기능이 보편화되었습니다. 사용자는 챗지피티 혹은 제미나이 등 고도화된 AI 엔진과 연계하여 최적의 개선 프로그램을 설계받고, 개별 체형 맞춤형 운동 사이클을 체계적으로 셋업할 수 있습니다.</p>
+
+                <p>한편, 식품의약품안전처(MFDS)를 비롯한 보건 당국의 기능성 물질 표시 및 광고 자율 심의 표준안이 전년 대비 극도로 정교화됨에 따라 단순 화장품이나 공산품 미용 보조 기기가 의학적인 지방 증식이나 실제적인 가슴 확대, 영구적 유방하수 복구 같은 임상적으로 불충분한 기전 명칭을 오남용하는 과장 영업 행위가 제도적으로 금지됩니다. 따라서 소비자들은 가슴탄력 화장품 브랜드를 구매할 때 허위 광고나 자극적이고 조작된 임상 순위에 휘둘리지 않고 철저히 증명된 고분자 유효 성분 표기와 안전 검증 필증을 획득했는지를 직관적으로 선별해야만 안전을 도모할 수 있습니다.</p>
+
+                <hr>
+
+                <h2 id="faq_section">6. 가슴탄력 관련 주요 의문점 해소를 위한 6문 6답 FAQ</h2>
+
+                <h4>Q1. 가슴탄력 전용 크림을 사용하면 실제로 수술 없이 처진 스킨이 확실히 위로 올라가나요?</h4>
+                <p>A. 보르피린이나 주름 기능성 성분들이 진피 하부의 지방 체적을 유도하고 콜라겐 조밀도를 끌어올려 미세한 볼륨감과 겉 피부 표면의 타이트닝감을 구현하는 데는 기여할 수 있습니다. 그러나 쿠퍼인대 자체가 중력을 이기지 못하고 고도화된 하향 처짐을 겪는 2등급 이상의 구조적 유방하수 상태에서는 크림의 활성 성분 단독 처리만으로는 물리적인 수직 복원이 사실상 불가하므로 인대 결합을 복구하는 다른 케어가 결합되어야 합니다.</p>
+
+                <h4>Q2. 출산 이후 모유 수유를 짧게 하면 가슴처짐을 최소화할 수 있다는 것이 사실인가요?</h4>
+                <p>A. 의학적 통계에 의하면 수유 기간 자체가 처짐의 원인을 일방적으로 지배하는 것은 아닙니다. 실제적인 하향 처짐 현상은 임신 직후 몸 안에서 왕성하게 분비되는 호르몬의 변화와 이에 수반되는 급격한 가슴 부피 팽창, 그리고 출산 직후 호르몬의 일시적 차단에 따른 탈락 유도가 주요 원인입니다. 따라서 수유 여부와 무관하게 분만 과정 전체에 걸쳐서 유선이 비대해지고 축소되는 흐름 자체가 처짐을 야기하므로 산전 및 산후의 규칙적 탄력 기조 관리가 가장 결정적입니다.</p>
+
+                <h4>Q3. 홈케어 미세전류 자극기와 병원용 고주파 리프팅의 대표적인 차이점은 무엇인가요?</h4>
+                <p>A. 가장 큰 차이는 에너지가 지닌 강도와 침투 기질적 도수입니다. 홈케어용 기기는 안전을 담보로 하기 때문에 생체 친화적인 미세 전류 및 약한 파동만을 가해 일상 속 진피 순환을 원활히 하고 콜라겐 기저를 자극하는 서포트 역할을 장점으로 취합니다. 반면 의료기관의 고주파 및 고강도 집속 초음파 시술은 강한 열 응고 작용을 통해 통제를 동반한 상처 치료 반응을 이끌어 스킨 깊은 부위의 장력을 즉시 고정하므로 반응 속도가 우수하지만 일정 수준의 회복 기간과 고비용의 지출이라는 장단점을 가지고 있습니다.</p>
+
+                <h4>Q4. 운동을 열심히 하면 가슴 위치 자체를 상방으로 재조정할 수 있나요?</h4>
+                <p>A. 유방 자체는 앞서 말씀드렸듯 근육이 존재하지 않는 완전한 부드러운 조직층입니다. 다만 유방이 안착하여 지지를 받는 흉벽 아래에는 대흉근이라는 거대한 흉막 근육 조직이 자리를 잡고 있습니다. 따라서 벤치프레스나 푸시업 등의 운동을 통해 흉근 벽면을 단단히 단련해 키워주게 되면 아래쪽에서 유방 전체의 위치적 토대를 받쳐 올려주는 입체적 고정 효과를 간접적으로 보장받을 수 있어 유용한 기초 대안이 됩니다.</p>
+
+                <h4>Q5. 탄력 증진 목적의 의학 레이저나 에스테틱 프로그램 비용은 대략 어느 수준인가요?</h4>
+                <p>A. 프로그램의 내용과 적용 샷 수에 따라 가격 스펙트럼이 매우 넓습니다. 일반적으로 피부과 진료 시 적용하는 탄력 개선 HIFU 초음파 리프팅은 회차당 대략 30만 원에서 많게는 120만 원 상당으로 형성되며, 최소 3회 이상 주기적으로 누적해 수반하는 경향이 있어 총 예상 비용은 대략 150만 원 이상 상정해야 안정적입니다. 일부 병원에서 제공하는 정기 패키지나 갱신 프로모션 할인을 알아보는 것도 효율적입니다.</p>
+
+                <h4>Q6. 20대 후반의 미혼 여성이 갑작스러운 체중 감량 후 탄력 상실을 겪을 때 가장 추천하는 단계는?</h4>
+                <p>A. 이 시기에는 아직 쿠퍼인대의 세포 활성이 풍부하고 피부 유연성이 강하게 보존되어 있으므로 과도한 절개식 외과 처방은 지양하는 것이 옳습니다. 흉근 단련을 유도하는 중량 저항 운동과 함께 보르피린이 배합된 크림류의 규칙적인 마사지를 유입하여 진피의 지방 세포 분화를 안정적으로 유도하고, 생체 흐름을 깨워줄 수 있는 데일리 홈케어 디바이스를 평행 운영하는 것만으로도 만족도 높은 개선 가능성을 보장받을 수 있습니다.</p>
+
+                <div class="calculator-section">
+                    <h3>1:1 맞춤형 탄력 보존 컨설팅 상담 신청</h3>
+                    <p>현재 개인별 연령대와 가슴의 처짐 수준, 그리고 허용 가능한 관리 예산에 따라 최적의 개선 솔루션을 제안받고 상세 견적서를 무료로 안내해 드립니다.</p>
+                    <form onsubmit="alert('상담이 안정적으로 접수되었습니다. 곧 순차적으로 가이드를 전달드리겠습니다.'); return false;">
+                        <label for="consultName">성함</label>
+                        <input type="text" id="consultName" placeholder="실명을 입력해 주십시오" required>
+
+                        <label for="consultContact">휴대폰 번호</label>
+                        <input type="text" id="consultContact" placeholder="010-XXXX-XXXX 형식으로 입력해 주십시오" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" title="010-XXXX-XXXX 형식이어야 합니다" required>
+
+                        <label for="consultType">가장 관심을 갖고 계신 개선 범주</label>
+                        <select id="consultType" required>
+                            <option value="">관심 분야를 지정해 주십시오</option>
+                            <option value="1">피부과 실리프팅 및 HIFU 초음파 상담</option>
+                            <option value="2">고기능 보르피린 성분 정품 크림 최저가 구매 정보</option>
+                            <option value="3">가정용 미세전류 탄력 어플 장비 분석 및 사은품 혜택 정보</option>
+                            <option value="4">수술 전 전문 진단 상담 및 안전성 가이드</option>
+                        </select>
+
+                        <label for="privacyConsent">개인정보 수집 이용 동의 (필수)</label>
+                        <div style="margin-top: 8px;">
+                            <input type="checkbox" id="privacyConsent" required style="width: auto; margin-right: 8px;">
+                            <label for="privacyConsent" style="display: inline; font-weight: normal; font-size: 0.9em; color: var(--text-muted);">제공된 맞춤 분석과 컨설팅 연락을 위해 수집하는 절차에 동의합니다.</label>
+                        </div>
+
+                        <button type="submit" style="background-color: var(--primary-dark);">맞춤 탄력 컨설팅 무료 신청</button>
+                    </form>
+                </div>
+
+                <div class="external-links">
+                    <h3>신뢰할 수 있는 학술 연구 및 제도 가이드</h3>
+                    <ul>
+                        <li><a href="https://solutioneswomenm.koreahankang.com" target="_blank">Reliabledone Health: 미용 성형 가이드 및 탄력 구조 개선 연구 초록 정보망</a></li>
+                        <li><a href="https://namu.wiki/w/%EC%9C%A0%EB%B0%A9" target="_blank">나무위키: 유방 해부학 및 인체 구조에 대한 일반 생물학적 가이드</a></li>
+                        <li><a href="https://www.mfds.go.kr" target="_blank">식품의약품안전처: 화장품 기능성 원료 허위 표시 광고 위반 예방 기준 안내</a></li>
+                        <li><a href="https://www.khidi.or.kr" target="_blank">한국보건산업진흥원: 글로벌 메디컬 에스테틱 및 차세대 테라피 공학 연구 보고서</a></li>
+                    </ul>
+                </div>
+
+                <p style="text-align: right; color: var(--text-muted); font-size: 0.85em; margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+                    컨텐츠 자문 검토 연구소 최종 수정일자: 2026년 7월 16일
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateElasticity(event) {
+            event.preventDefault();
+
+            var age = document.getElementById('userAge').value;
+            var birth = document.getElementById('childBirth').value;
+            var weight = document.getElementById('weightLoss').value;
+            var status = document.getElementById('currentStatus').value;
+            var plan = document.getElementById('preferredPlan').value;
+
+            if (!age || !birth || !weight || !status || !plan) {
+                alert('모든 진단 문항에 답변을 완벽히 표기해 주십시오.');
+                return;
+            }
+
+            var lossLevel = "경미한 수준";
+            var budgetText = "10만 원 미만 (홈케어 중심)";
+            var periodText = "최소 2~3개월 지속 케어 필요";
+            var successRate = "약 85% 양호";
+            var solutionRecommendation = "보르피린 함유 크림과 흉벽 대흉근 보강 근력 트레이닝 병행";
+
+            if (status === 'moderate') {
+                lossLevel = "중등도 처짐 및 진피 이완 단계";
+                if (plan === 'home') {
+                    budgetText = "30만 ~ 80만 원선 (미세전류 디바이스 융합)";
+                    periodText = "최소 4~6개월 꾸준한 세션 진행 권장";
+                } else if (plan === 'pro') {
+                    budgetText = "월 20만 ~ 50만 원선 (관리 주기별 상이)";
+                    periodText = "3개월 집중 샵 케어 및 일상 사후 유지";
+                } else {
+                    budgetText = "회당 60만 ~ 150만 원선 (HIFU 에너지 레이저 기준)";
+                    periodText = "1회성 시술 후 6개월 단위 갱신 케어";
+                }
+                successRate = "약 70% 상태 호전 및 유지 기대";
+                solutionRecommendation = "자가 증식 보르피린 활성 물질 집중 도포 및 저주파 리프팅 기기 주 3회 운용";
+            } else if (status === 'severe') {
+                lossLevel = "고도 하수 진입 및 쿠퍼인대 이완 심화";
+                if (plan === 'medical') {
+                    budgetText = "300만 ~ 600만 원 이상 (교정 수술 또는 복합 시술 기준)";
+                    periodText = "시술 후 정상 생착 및 안정기 도래에 최소 3개월 수반";
+                    successRate = "구조적 대칭성 복원 약 90% 이상 가시적 성공";
+                    solutionRecommendation = "성형외과 전문의 대면 상담을 통한 유방하수 고정 고리 배치 검토";
+                } else {
+                    budgetText = "월 15만 ~ 30만 원선 (보조 완충요법 한계)";
+                    periodText = "장기 누적 영구적 지향 필요";
+                    successRate = "약 45% 내외 표피 수축 보조 및 피부 처짐 억제 만족에 국한";
+                    solutionRecommendation = "진피 타이트닝 성분 고농도 침투 및 고정력을 위한 수면용 피지컬 서포팅 브라 착용 필수화";
+                }
+            }
+
+            var resultSection = document.getElementById('interactive_results');
+            var resultBox = document.getElementById('comparison_result');
+
+            var htmlContent = '<h4>맞춤 진단 시뮬레이션 결과 리포트</h4>' +
+                '<p>분석에 참여해 주셔서 감사합니다. 귀하의 응답에 따른 신체 지지 구조 예상 진단 보고서는 아래와 같습니다.</p>' +
+                '<table>' +
+                '<thead>' +
+                '<tr>' +
+                '<th>진단 평가 항목</th>' +
+                '<th>도출된 맞춤 분석 데이터</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' +
+                '<tr>' +
+                '<td>**상태 진단 단계**</td>' +
+                '<td>' + lossLevel + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>**예상 총 예산 요금**</td>' +
+                '<td>' + budgetText + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>**개선에 소요되는 시간**</td>' +
+                '<td>' + periodText + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>**예상 만족 기여 확률**</td>' +
+                '<td>' + successRate + '</td>' +
+                '</tr>' +
+                '<tr>' +
+                '<td>**추천되는 개선 플랜**</td>' +
+                '<td>' + solutionRecommendation + '</td>' +
+                '</tr>' +
+                '</tbody>' +
+                '</table>' +
+                '<p style="color: var(--primary-dark); font-weight: 700; font-size: 0.9em; margin-top: 15px;">*본 정보는 입력 데이터를 활용한 비대면 기계적 분류 예측값입니다. 물리적인 개인 기질 차이가 존재할 수 있으므로, 세세한 진단은 상단의 1:1 정밀 안내를 참고해 주십시오.</p>';
+
+            resultBox.innerHTML = htmlContent;
+            resultSection.style.display = 'block';
+            resultBox.style.display = 'block';
+
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+                          
